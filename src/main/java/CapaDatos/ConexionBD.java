@@ -18,9 +18,12 @@ public class ConexionBD {
     
     public Connection abrirConexion(){
         try{
-            String url = "jdbc:mysql://localhost:3306/neptuno?user=root&password=12345"
+            /*String url = "jdbc:mysql://127.0.0.1:3306/almacen_db?user=root&password=root"
                                    + "&allowPublicKeyRetrieval=true&useSSL=false";
-            
+            */
+            String url = "jdbc:mysql://localhost:3306/almacen_db?user=root&password=12345"
+                                   + "&allowPublicKeyRetrieval=true&useSSL=false";
+          
             cn = DriverManager.getConnection(url);           
         }catch(Exception e1){
             System.out.println("Error Sql :"+e1.getMessage());
