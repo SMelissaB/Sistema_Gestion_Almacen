@@ -1,0 +1,11 @@
+public class ProductoService {
+
+    private ProductoDAO dao = new ProductoDAO();
+
+    public void registrarProducto(Producto p) {
+        if(p.getNombre().isEmpty()){
+            throw new RuntimeException("Nombre obligatorio");
+        }
+        dao.insertar(p);
+    }
+}
