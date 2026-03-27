@@ -1,0 +1,17 @@
+package capaNegocio;
+
+import capaDatos.UsuarioDAO;
+
+public class UsuarioService {
+
+    private UsuarioDAO dao = new UsuarioDAO();
+
+    public boolean autenticar(String user, String pass) {
+
+        if(user.isEmpty() || pass.isEmpty()){
+            throw new RuntimeException("Campos vacíos");
+        }
+
+        return dao.login(user, pass);
+    }
+}
