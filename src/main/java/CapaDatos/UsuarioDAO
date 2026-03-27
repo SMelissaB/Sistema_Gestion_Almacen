@@ -1,0 +1,24 @@
+package capaDatos;
+
+import java.sql.*;
+
+public class UsuarioDAO {
+
+    public boolean login(String user, String pass) {
+        String sql = "SELECT * FROM usuarios WHERE usuario=? AND clave=?";
+        
+        try (Connection con = Conexion.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setString(1, user);
+            ps.setString(2, pass);
+
+            ResultSet rs = ps.executeQuery();
+            return rs.next();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+}
