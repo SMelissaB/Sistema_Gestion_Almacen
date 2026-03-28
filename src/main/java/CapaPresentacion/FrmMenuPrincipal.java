@@ -107,7 +107,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
         txtNombre.setPreferredSize(new java.awt.Dimension(200, 20));
 
-        jLabel3.setText("Nombre Empresa:");
+        jLabel3.setText("Nombre:");
         jLabel3.setAlignmentX(0.5F);
 
         btnNuevo.setText("Nuevo");
@@ -227,7 +227,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         String men = "";
-        if (this.idProveedor == 0) {
+        if (this.idProveedor == 0) { //guardamos
             Proveedor oProveedor = new Proveedor(
                 txtCodigo.getText(),
                 txtNombre.getText()
@@ -239,7 +239,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
                 men = "No se pudo guardar";
             }
         }
-        else {
+        else {//actualizamos
             Proveedor oProveedor = new Proveedor(
                 this.idProveedor,
                 txtCodigo.getText(),
@@ -265,9 +265,9 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Ingrese codigo");
         } else {
             Proveedor oProveedor = oProveedorBL.buscarProveedor(txtCodigo.getText());
-            if (oProveedor == null) {
+            if (oProveedor == null) { // Si no lo encuentra
                 JOptionPane.showMessageDialog(this, "NO EXISTE");
-            } else {
+            } else { // si lo encuentra
                 this.idProveedor = oProveedor.getIdProveedor();
                 txtCodigo.setText(String.valueOf(oProveedor.getCodigo()));
                 txtNombre.setText(oProveedor.getNombre());
