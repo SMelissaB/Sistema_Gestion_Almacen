@@ -17,9 +17,9 @@ import java.util.List;
  * @author melis
  */
 public class ProveedorDAL {
-        Connection cn = new ConexionBD().abrirConexion();
+    Connection cn = new ConexionBD().abrirConexion();
     
-        public List listar() {
+    public List listar() {
         List<Proveedor> lista = new ArrayList<>();
         try {
             Connection cn = new ConexionBD().abrirConexion();

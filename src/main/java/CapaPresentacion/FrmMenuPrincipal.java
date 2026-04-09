@@ -1,64 +1,24 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package CapaPresentacion;
 
-import CapaNegocio.ProveedorBL;
-import CapaRecursos.Proveedor;
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JDesktopPane;
 
 /**
  *
- * @author Usuario
+ * @author melis
  */
 public class FrmMenuPrincipal extends javax.swing.JFrame {
-
-    ProveedorBL oProveedorBL = new ProveedorBL();
-    int idProveedor = 0;
-    
-    void listar() {
-        DefaultTableModel mtabla = new DefaultTableModel();
-        String [] titulos = {
-        "Codigo", 
-        "Nombre"};
-        mtabla.setColumnIdentifiers(titulos);
-
-        List<Proveedor> lista = oProveedorBL.listarProveedor();
-
-        for (Proveedor oProveedor : lista) {
-            Object data[] = {
-                oProveedor.getCodigo(), 
-                oProveedor.getNombre(),
-            };
-            mtabla.addRow(data);
-        }
-
-        tblLista.setModel(mtabla);
-    }
-    
-    void limpiar() {
-        //txtId.setText();
-        txtCodigo.setText("");
-        txtNombre.setText("");
-
-        txtCodigo.requestFocus();
-    }
-
-    void activarbotones(boolean botonGuardar, boolean botonBuscar, boolean botonEliminar) {
-        btnGuardar.setEnabled(botonGuardar);
-        btnBuscar.setEnabled(botonBuscar);
-        btnEliminar.setEnabled(botonEliminar);
-    }
-    
+  
+    /**
+     * Creates new form FrmMenuPrincipal
+     */
     public FrmMenuPrincipal() {
         initComponents();
-        setLocationRelativeTo(null);
-        setResizable(false);
-        listar();
-        activarbotones(false, true, false);
+        this.setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -70,227 +30,92 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblLista = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
-        txtNombre = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        btnNuevo = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
+        desktopPane = new javax.swing.JDesktopPane();
+        menuBar = new javax.swing.JMenuBar();
+        mnuProveedores = new javax.swing.JMenu();
+        mnuMovimientos = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(50, 420));
-
-        tblLista.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tblLista);
-
-        jLabel2.setText("Codigo:");
-        jLabel2.setAlignmentX(0.5F);
-
-        txtCodigo.setPreferredSize(new java.awt.Dimension(200, 20));
-
-        txtNombre.setPreferredSize(new java.awt.Dimension(200, 20));
-
-        jLabel3.setText("Nombre:");
-        jLabel3.setAlignmentX(0.5F);
-
-        btnNuevo.setText("Nuevo");
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
+        mnuProveedores.setMnemonic('f');
+        mnuProveedores.setText("PROVEEDORES");
+        mnuProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnuProveedoresMouseClicked(evt);
             }
         });
+        menuBar.add(mnuProveedores);
 
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
+        mnuMovimientos.setMnemonic('e');
+        mnuMovimientos.setText("MOVIMIENTOS");
+        mnuMovimientos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnuMovimientosMouseClicked(evt);
             }
         });
+        menuBar.add(mnuMovimientos);
 
-        btnBuscar.setText("Buscar");
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
-
-        btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel2))
-                                .addGap(29, 29, 29)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(btnNuevo)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnGuardar)
-                        .addGap(26, 26, 26)
-                        .addComponent(btnBuscar)
-                        .addGap(28, 28, 28)
-                        .addComponent(btnEliminar)))
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNuevo)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnBuscar)
-                    .addComponent(btnEliminar))
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Proveedor", jPanel1);
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        this.idProveedor = 0;
-        if (btnNuevo.getText().equalsIgnoreCase("Nuevo")) {
-            btnNuevo.setText("Cancelar");
-            limpiar();
-            activarbotones(true, false, false);
-        }
-        else {
-            btnNuevo.setText("Nuevo");
-            limpiar();
-            activarbotones(false, true, false);
-        }
-    }//GEN-LAST:event_btnNuevoActionPerformed
+    private void mnuProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuProveedoresMouseClicked
+        boolean estaAbierta = false;
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        String men = "";
-        if (this.idProveedor == 0) { //guardamos
-            Proveedor oProveedor = new Proveedor(
-                txtCodigo.getText(),
-                txtNombre.getText()
-            );
-            if (oProveedorBL.agregarProveedor(oProveedor) == 1) {
-                men = "Registro guardado";
-                btnNuevo.setText("Nuevo");
-            } else {
-                men = "No se pudo guardar";
-            }
-        }
-        else {//actualizamos
-            Proveedor oProveedor = new Proveedor(
-                this.idProveedor,
-                txtCodigo.getText(),
-                txtNombre.getText()
-            );
-            if (oProveedorBL.actualizarProveedor(oProveedor) == 1) {
-                men = "Registro Actualizado";
-                btnNuevo.setText("Nuevo");
-            } else {
-                men = "No se pudo Actualizar";
+        // Recorremos todas las ventanas abiertas en el panel
+        for (javax.swing.JInternalFrame frame : desktopPane.getAllFrames()) {
+            if (frame instanceof JIFrameProveedor) {
+                estaAbierta = true;
+                frame.toFront(); // Si ya existe, la trae al frente
+                try {
+                    frame.setSelected(true); // La selecciona físicamente
+                } catch (java.beans.PropertyVetoException e) {}
+                break;
             }
         }
 
-        JOptionPane.showMessageDialog(this, men);
-        listar();
-        activarbotones(false, true, false);
-        limpiar();
-    }//GEN-LAST:event_btnGuardarActionPerformed
+        // Solo si no está abierta, creamos una nueva
+        if (!estaAbierta) {
+            JIFrameProveedor ventana = new JIFrameProveedor();
+            desktopPane.add(ventana);
+            ventana.setVisible(true);
+        }
+    }//GEN-LAST:event_mnuProveedoresMouseClicked
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        txtCodigo.setText(JOptionPane.showInputDialog("Ingrese Codigo a buscar"));
-        if (txtCodigo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ingrese codigo");
-        } else {
-            Proveedor oProveedor = oProveedorBL.buscarProveedor(txtCodigo.getText());
-            if (oProveedor == null) { // Si no lo encuentra
-                JOptionPane.showMessageDialog(this, "NO EXISTE");
-            } else { // si lo encuentra
-                this.idProveedor = oProveedor.getIdProveedor();
-                txtCodigo.setText(String.valueOf(oProveedor.getCodigo()));
-                txtNombre.setText(oProveedor.getNombre());
+    private void mnuMovimientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuMovimientosMouseClicked
+        boolean estaAbierta = false;
 
-                activarbotones(true, false, true);
+        // Recorremos todas las ventanas abiertas en el panel
+        for (javax.swing.JInternalFrame frame : desktopPane.getAllFrames()) {
+            if (frame instanceof JIFrameMovimiento) {
+                estaAbierta = true;
+                frame.toFront(); // Si ya existe, la trae al frente
+                try {
+                    frame.setSelected(true); // La selecciona físicamente
+                } catch (java.beans.PropertyVetoException e) {}
+                break;
             }
         }
-    }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
-        String men = "";
-        if (oProveedorBL.eliminarProveedor(this.idProveedor) == 1) {
-            men = "Registro Eliminado";
-        } else {
-            men = "No se pudo Eliminar";
+        // Solo si no está abierta, creamos una nueva
+        if (!estaAbierta) {
+            JIFrameMovimiento ventana = new JIFrameMovimiento();
+            desktopPane.add(ventana);
+            ventana.setVisible(true);
         }
-
-        JOptionPane.showMessageDialog(this, men);
-        listar();
-        activarbotones(false, true, false);
-        limpiar();
-    }//GEN-LAST:event_btnEliminarActionPerformed
+    }//GEN-LAST:event_mnuMovimientosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -328,17 +153,10 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnNuevo;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable tblLista;
-    private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtNombre;
+    private javax.swing.JDesktopPane desktopPane;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenu mnuMovimientos;
+    private javax.swing.JMenu mnuProveedores;
     // End of variables declaration//GEN-END:variables
+
 }
