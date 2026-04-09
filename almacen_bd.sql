@@ -73,3 +73,46 @@ VALUES
 ('P003', 'Soluciones Tecnológicas S.A.'),
 ('P004', 'Suministros Industriales'),
 ('P005', 'Comercializadora del Norte');
+
+-- Procedimientos Almacenados
+
+-- -----------------------------------------------------
+-- PROCEDIMIENTOS PARA PROVEEDOR
+-- -----------------------------------------------------
+DELIMITER //
+
+CREATE PROCEDURE sp_listar_proveedores()
+BEGIN
+    SELECT id_proveedor, codigo, nombre FROM proveedor;
+END //
+
+CREATE PROCEDURE sp_agregar_proveedor(
+    IN p_codigo VARCHAR(20),
+    IN p_nombre VARCHAR(100)
+)
+BEGIN
+    INSERT INTO proveedor(codigo, nombre) VALUES (p_codigo, p_nombre);
+END //
+
+CREATE PROCEDURE sp_buscar_proveedor(
+    IN p_codigo VARCHAR(20)
+)
+BEGIN
+    SELECT id_proveedor, codigo, nombre FROM proveedor WHERE codigo = p_codigo;
+END //
+
+CREATE PROCEDURE sp_actualizar_proveedor(
+    IN p_id INT,
+    IN p_codigo VARCHAR(20),
+    IN p_nombre VARCHAR(100)
+)
+BEGIN
+    UPDATE proveedor SET codigo = p_codigo, nombre = p_nombre WHERE id_proveedor = p_id;
+END //
+
+CREATE PROCEDURE sp_eliminar_proveedor(
+    IN p_id INT
+)
+BEGIN
+    DELETE FROM proveedor WHERE id_proveedor = p_id;
+END //

@@ -6,6 +6,7 @@
 package CapaDatos;
 
 import CapaRecursos.Proveedor;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,9 +23,8 @@ public class ProveedorDAL {
     public List listar() {
         List<Proveedor> lista = new ArrayList<>();
         try {
-            Connection cn = new ConexionBD().abrirConexion();
-            PreparedStatement ps = cn.prepareStatement("Select * from proveedor");
-            ResultSet rs = ps.executeQuery();
+            CallableStatement cst = cn.prepareCall("{call sp_listar_proveedores()}");
+            ResultSet rs = cst.executeQuery();
 
             while (rs.next()) {
                 lista.add(new Proveedor(rs.getInt(1),
@@ -33,7 +33,7 @@ public class ProveedorDAL {
             }
 
             rs.close();
-            ps.close();
+            cst.close();
         } catch (Exception e) {
             System.out.println("listarProducto: " + e.getMessage());
         }
@@ -43,18 +43,18 @@ public class ProveedorDAL {
     public int agregar(Proveedor unProveedor) {
         int r;
         try {
-            PreparedStatement pst = cn.prepareStatement("insert into proveedor(codigo, nombre) values (?, ?)");
+            CallableStatement cst = cn.prepareCall("{call sp_agregar_proveedor(?, ?)}");
 
-            pst.setString(1, unProveedor.getCodigo());
-            pst.setString(2, unProveedor.getNombre());
+            cst.setString(1, unProveedor.getCodigo());
+            cst.setString(2, unProveedor.getNombre());
 
-            int f = pst.executeUpdate();
+            int f = cst.executeUpdate();
             if (f > 0) {
                 r = 1;
             } else {
                 r = 0;
             }
-            pst.close();
+            cst.close();
         } catch (Exception ex) {
             r = 0;
         }
@@ -64,9 +64,9 @@ public class ProveedorDAL {
      public Proveedor buscar(String codigo) {
         Proveedor oProveedor = null;
         try {
-            PreparedStatement pst = cn.prepareStatement("select * from proveedor where codigo = ?");
-            pst.setString(1, codigo);
-            ResultSet rs = pst.executeQuery();
+            CallableStatement cst = cn.prepareCall("{call sp_buscar_proveedor(?)}");
+            cst.setString(1, codigo);
+            ResultSet rs = cst.executeQuery();
 
             if (rs.next()) {
                 oProveedor = new Proveedor();
@@ -74,7 +74,7 @@ public class ProveedorDAL {
                 oProveedor.setCodigo(rs.getString("codigo"));
                 oProveedor.setNombre(rs.getString("nombre"));
             }
-            pst.close();
+            cst.close();
             rs.close();
         } catch (Exception ex) {
             System.out.println("Error al buscar: " + ex.getMessage());
@@ -85,16 +85,15 @@ public class ProveedorDAL {
     public int actualizar(Proveedor unProveedor) {
         int r;
         try {
-            PreparedStatement pst = cn.prepareStatement("update proveedor set codigo=?, nombre=? "
-                    + " where id_proveedor=?");
+            CallableStatement cst = cn.prepareCall("{call sp_actualizar_proveedor(?, ?, ?)}");
 
-            pst.setString(1, unProveedor.getCodigo());
-            pst.setString(2, unProveedor.getNombre());
-            pst.setInt(3, unProveedor.getIdProveedor()); 
+            cst.setInt(1, unProveedor.getIdProveedor());
+            cst.setString(2, unProveedor.getCodigo());
+            cst.setString(3, unProveedor.getNombre());
 
-            int f = pst.executeUpdate();
+            int f = cst.executeUpdate();
             r = (f > 0) ? 1 : 0;
-            pst.close();
+            cst.close();
         } catch (Exception e) {
             r = 0;
         }
@@ -104,11 +103,11 @@ public class ProveedorDAL {
     public int eliminar(int id) {
         int r;
         try {
-            PreparedStatement pst = cn.prepareStatement("delete from proveedor where id_proveedor=?");
-            pst.setInt(1, id);
-            int f = pst.executeUpdate();
+            CallableStatement cst = cn.prepareCall("{call sp_eliminar_proveedor(?)}");
+            cst.setInt(1, id);
+            int f = cst.executeUpdate();
             r = (f > 0) ? 1 : 0;
-            pst.close();
+            cst.close();
         } catch (Exception e) {
             r = 0;
         }
