@@ -26,10 +26,8 @@ public class JIFrameProveedor extends javax.swing.JInternalFrame {
         setResizable(false);
         listar();
         activarbotones(false, true, false);
-        this.setClosable(true);      // Botón de cerrar
-        this.setIconifiable(true);   // Botón de minimizar
-        //this.setMaximizable(true);   // Botón de maximizar
-        //this.setResizable(true);     // Cambiar tamaño
+        this.setClosable(true);
+        this.setIconifiable(true);
     }
 
         void listar() {

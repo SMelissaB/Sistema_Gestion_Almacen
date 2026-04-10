@@ -10,49 +10,58 @@ package CapaRecursos;
  * @author melis
  */
 public class DetalleMovimiento {
-    private int id_detalle;
-    private int id_movimiento;
-    private int id_producto;
+    private int idDetalle;
+    private int idMovimiento;
+    private int idProducto;
     private int cantidad;
-
+    private double precioHistorico;
+    
     public DetalleMovimiento() {
     }
 
     public DetalleMovimiento(int id_movimiento, int id_producto, int cantidad) {
-        this.id_movimiento = id_movimiento;
-        this.id_producto = id_producto;
+        this.idMovimiento = id_movimiento;
+        this.idProducto = id_producto;
         this.cantidad = cantidad;
     }
 
     public DetalleMovimiento(int id_detalle, int id_movimiento, int id_producto, int cantidad) {
-        this.id_detalle = id_detalle;
-        this.id_movimiento = id_movimiento;
-        this.id_producto = id_producto;
+        this.idDetalle = id_detalle;
+        this.idMovimiento = id_movimiento;
+        this.idProducto = id_producto;
         this.cantidad = cantidad;
     }
 
-    public int getId_detalle() {
-        return id_detalle;
+    public DetalleMovimiento(int idDetalle, int idMovimiento, int idProducto, int cantidad, double precioHistorico) {
+        this.idDetalle = idDetalle;
+        this.idMovimiento = idMovimiento;
+        this.idProducto = idProducto;
+        this.cantidad = cantidad;
+        this.precioHistorico = precioHistorico;
+    }
+    
+    public int getIdDetalle() {
+        return idDetalle;
     }
 
-    public void setId_detalle(int id_detalle) {
-        this.id_detalle = id_detalle;
+    public void setIdDetalle(int idDetalle) {
+        this.idDetalle = idDetalle;
     }
 
-    public int getId_movimiento() {
-        return id_movimiento;
+    public int getIdMovimiento() {
+        return idMovimiento;
     }
 
-    public void setId_movimiento(int id_movimiento) {
-        this.id_movimiento = id_movimiento;
+    public void setIdMovimiento(int idMovimiento) {
+        this.idMovimiento = idMovimiento;
     }
 
-    public int getId_producto() {
-        return id_producto;
+    public int getIdProducto() {
+        return idProducto;
     }
 
-    public void setId_producto(int id_producto) {
-        this.id_producto = id_producto;
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
     }
 
     public int getCantidad() {
@@ -62,5 +71,14 @@ public class DetalleMovimiento {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-    
+
+    public double getPrecioHistorico() {
+        return precioHistorico;
+    }
+
+    public void setPrecioHistorico(double precioHistorico) {
+        this.precioHistorico = precioHistorico;
+    }
+
+     
 }

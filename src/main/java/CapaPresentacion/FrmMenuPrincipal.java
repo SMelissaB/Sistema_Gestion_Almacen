@@ -34,6 +34,8 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         mnuProveedores = new javax.swing.JMenu();
         mnuMovimientos = new javax.swing.JMenu();
+        mnuItemRegistarMovimiento = new javax.swing.JMenuItem();
+        mItemConsultarMovimientos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,6 +55,23 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
                 mnuMovimientosMouseClicked(evt);
             }
         });
+
+        mnuItemRegistarMovimiento.setText("Registrar Movimiento");
+        mnuItemRegistarMovimiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuItemRegistarMovimientoActionPerformed(evt);
+            }
+        });
+        mnuMovimientos.add(mnuItemRegistarMovimiento);
+
+        mItemConsultarMovimientos.setText("Consultar Movimientos");
+        mItemConsultarMovimientos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItemConsultarMovimientosActionPerformed(evt);
+            }
+        });
+        mnuMovimientos.add(mItemConsultarMovimientos);
+
         menuBar.add(mnuMovimientos);
 
         setJMenuBar(menuBar);
@@ -95,6 +114,10 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuProveedoresMouseClicked
 
     private void mnuMovimientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuMovimientosMouseClicked
+
+    }//GEN-LAST:event_mnuMovimientosMouseClicked
+
+    private void mnuItemRegistarMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuItemRegistarMovimientoActionPerformed
         boolean estaAbierta = false;
 
         // Recorremos todas las ventanas abiertas en el panel
@@ -115,7 +138,30 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
             desktopPane.add(ventana);
             ventana.setVisible(true);
         }
-    }//GEN-LAST:event_mnuMovimientosMouseClicked
+    }//GEN-LAST:event_mnuItemRegistarMovimientoActionPerformed
+
+    private void mItemConsultarMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemConsultarMovimientosActionPerformed
+        boolean estaAbierta = false;
+
+        // Recorremos todas las ventanas abiertas en el panel
+        for (javax.swing.JInternalFrame frame : desktopPane.getAllFrames()) {
+            if (frame instanceof JIFrameConsultaMovimientos) {
+                estaAbierta = true;
+                frame.toFront(); // Si ya existe, la trae al frente
+                try {
+                    frame.setSelected(true); // La selecciona físicamente
+                } catch (java.beans.PropertyVetoException e) {}
+                break;
+            }
+        }
+
+        // Solo si no está abierta, creamos una nueva
+        if (!estaAbierta) {
+            JIFrameConsultaMovimientos ventana = new JIFrameConsultaMovimientos();
+            desktopPane.add(ventana);
+            ventana.setVisible(true);
+        }
+    }//GEN-LAST:event_mItemConsultarMovimientosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,7 +200,9 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPane;
+    private javax.swing.JMenuItem mItemConsultarMovimientos;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem mnuItemRegistarMovimiento;
     private javax.swing.JMenu mnuMovimientos;
     private javax.swing.JMenu mnuProveedores;
     // End of variables declaration//GEN-END:variables

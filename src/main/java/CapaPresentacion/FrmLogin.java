@@ -115,6 +115,7 @@ public class FrmLogin extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Acceso concedido. ¡Bienvenido!");
         
         FrmMenuPrincipal menu = new FrmMenuPrincipal();
+        CapaRecursos.Sesion.setUsername(user);
         menu.setVisible(true); 
         
         this.dispose(); 

@@ -12,33 +12,42 @@ import java.time.LocalDate;
  * @author melis
  */
 public class Movimiento {
-    private int id_movimiento;
+    private int idMovimiento;
     private LocalDate fecha;
-    private String tipo_movimiento;
-    private String numero_documento;
+    private String tipoMovimiento;
+    private String nroDocumento;
+    private int idUsuario;
 
     public Movimiento() {
     }
     
     public Movimiento(LocalDate fecha, String tipo_movimiento, String numero_documento) {
         this.fecha = fecha;
-        this.tipo_movimiento = tipo_movimiento;
-        this.numero_documento = numero_documento;
+        this.tipoMovimiento = tipo_movimiento;
+        this.nroDocumento = numero_documento;
     }
         
     public Movimiento(int id_movimiento, LocalDate fecha, String tipo_movimiento, String numero_documento) {
-        this.id_movimiento = id_movimiento;
+        this.idMovimiento = id_movimiento;
         this.fecha = fecha;
-        this.tipo_movimiento = tipo_movimiento;
-        this.numero_documento = numero_documento;
+        this.tipoMovimiento = tipo_movimiento;
+        this.nroDocumento = numero_documento;
     }
 
-    public int getId_movimiento() {
-        return id_movimiento;
+    public Movimiento(int idMovimiento, LocalDate fecha, String tipoMovimiento, String nroDocumento, int usuario) {
+        this.idMovimiento = idMovimiento;
+        this.fecha = fecha;
+        this.tipoMovimiento = tipoMovimiento;
+        this.nroDocumento = nroDocumento;
+        this.idUsuario = usuario;
+    }
+    
+    public int getIdMovimiento() {
+        return idMovimiento;
     }
 
-    public void setId_movimiento(int id_movimiento) {
-        this.id_movimiento = id_movimiento;
+    public void setIdMovimiento(int idMovimiento) {
+        this.idMovimiento = idMovimiento;
     }
 
     public LocalDate getFecha() {
@@ -49,21 +58,27 @@ public class Movimiento {
         this.fecha = fecha;
     }
 
-    public String getTipo_movimiento() {
-        return tipo_movimiento;
+    public String getTipoMovimiento() {
+        return tipoMovimiento;
     }
 
-    public void setTipo_movimiento(String tipo_movimiento) {
-        this.tipo_movimiento = tipo_movimiento;
+    public void setTipoMovimiento(String tipoMovimiento) {
+        this.tipoMovimiento = tipoMovimiento;
     }
 
-    public String getNumero_documento() {
-        return numero_documento;
+    public String getNroDocumento() {
+        return nroDocumento;
     }
 
-    public void setNumero_documento(String numero_documento) {
-        this.numero_documento = numero_documento;
+    public void setNroDocumento(String nroDocumento) {
+        this.nroDocumento = nroDocumento;
     }
-    
-    
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    } 
 }

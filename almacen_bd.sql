@@ -259,13 +259,13 @@ BEGIN
 
     SELECT 
         m.fecha AS Fecha,
-        m.nro_documento AS Documento,
+        m.numero_documento AS Documento,
         IF(m.tipo_movimiento = 'ENTRADA', dm.cantidad, NULL) AS Entrada,
         IF(m.tipo_movimiento = 'SALIDA', dm.cantidad, NULL) AS Salida,
         (@saldo := IF(m.tipo_movimiento = 'ENTRADA', @saldo + dm.cantidad, @saldo - dm.cantidad)) AS Saldo
     FROM movimiento m
     INNER JOIN detalle_movimiento dm ON m.id_movimiento = dm.id_movimiento
-    WHERE dm.id_producto = p_id_producto AND m.estado = 1
+    WHERE dm.id_producto = p_id_producto -- AND m.estado = 1
     ORDER BY m.fecha ASC, m.id_movimiento ASC;
 END //
 
