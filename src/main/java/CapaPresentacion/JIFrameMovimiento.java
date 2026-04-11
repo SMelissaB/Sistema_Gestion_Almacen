@@ -20,12 +20,14 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
      * Creates new form JIFrameMovimiento
      */
     
+    Integer idProduto = 0;
+    
     // Datos para pruebas
-    String[] nombresProd = {"-- Seleccione un Producto --", "Leche 1L", "Arroz 5kg", "Detergente", "Shampoo", "Agua 600ml", "Pollo 1kg"};
+    /*String[] nombresProd = {"-- Seleccione un Producto --", "Leche 1L", "Arroz 5kg", "Detergente", "Shampoo", "Agua 600ml", "Pollo 1kg"};
     int[] stocksProd = {0,100, 50, 30, 45, 200, 25}; 
     double[] preciosProd = { 0.0, 3.50, 18.20, 12.00, 15.50, 2.00, 14.80};
     int[] idsProd = { 0, 1, 2, 3, 4, 5, 6};
-    
+    */
     public JIFrameMovimiento() {
         initComponents();
         configurarCabecera();
@@ -86,17 +88,18 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
     }
     
     private void cargarProductosCombo() {
-        cargarProductosMock();
+        //cargarProductosMock();
+        cargarProductosBD();
     }
-    private void cargarProductosMock(){
+    /*private void cargarProductosMock(){
         cboProducto.removeAllItems();
         for (String nombre : nombresProd) {
             cboProducto.addItem(nombre);
         }
-    }
+    }*/
     
     private void cargarProductosBD(){
-        /*
+        
         cboProducto.removeAllItems();
         cboProducto.addItem("-- Seleccione un Producto --");
 
@@ -105,8 +108,9 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
         java.util.List<CapaRecursos.Producto> lista = oProductoBL.listarProductos();
 
         for (CapaRecursos.Producto p : lista) {
+            System.out.println(p.getNombre());
             cboProducto.addItem(p.getNombre());
-        }*/
+        }
     }
     
     private boolean validarCabecera() {
@@ -177,7 +181,7 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
 
         setTitle("REGISTRAR MOVIMIENTO");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cabecera"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cabecera"));
 
         lblFecha.setText("jLabel2");
 
@@ -385,10 +389,11 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnQuitarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimpiarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGuardarMovimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnGuardarMovimiento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnQuitarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnLimpiarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
@@ -400,12 +405,13 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cboTipoMovimientoActionPerformed
 
     private void cboProductoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboProductoItemStateChanged
-        cboProductoStateChangedMock(evt);
+        //cboProductoStateChangedMock(evt);
+        cboProductoStateChangedBD(evt);
     }//GEN-LAST:event_cboProductoItemStateChanged
 
     private void cboProductoStateChangedBD(java.awt.event.ItemEvent evt){
         // Solo actuamos cuando se SELECCIONA un elemento (evita que se ejecute dos veces)
-        /*if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+        if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
 
             String nombreProd = cboProducto.getSelectedItem().toString();
 
@@ -416,20 +422,25 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
 
                 if (p != null) {
                     // 2. Llenamos los campos automáticamente
+                    System.out.println(p.getIdProducto());
+                    this.idProduto = p.getIdProducto();
                     txtStock.setText(String.valueOf(p.getStock()));
                     txtPrecio.setText(String.valueOf(p.getPrecio()));
                     spCantidad.setValue(1); // Ponemos 1 por defecto
                     spCantidad.requestFocus(); // Saltamos el cursor a cantidad para ahorrar tiempo
+                    
+                    
+                    
                 }
             } else {
                 // Si selecciona el mensaje de ayuda, limpiamos los campos
                 txtStock.setText("0");
                 txtPrecio.setText("0.00");
             }
-        }*/
+        }
     }
     
-    private void cboProductoStateChangedMock(java.awt.event.ItemEvent evt){
+    /*private void cboProductoStateChangedMock(java.awt.event.ItemEvent evt){
         if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
             int index = cboProducto.getSelectedIndex();
 
@@ -443,10 +454,11 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
                 txtPrecio.setText("0.00");
             }
         }
-    }
+    }*/
     
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        agregarProdcutoMock();
+        //agregarProdcutoMock();
+        agregarProdcutoBD();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnQuitarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarItemActionPerformed
@@ -551,7 +563,7 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnGuardarMovimientoActionPerformed
 
-     private void agregarProdcutoMock(){
+     /*private void agregarProdcutoMock(){
          int index = cboProducto.getSelectedIndex();
         if (index == 0) {
             JOptionPane.showMessageDialog(this, "Seleccione un producto.");
@@ -576,7 +588,7 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
         modelo.addRow(new Object[]{id, nombre, cant, precio, subtotal});
 
         calcularTotalGeneral();
-     }
+     }*/
 
     private void agregarProdcutoBD(){
         // 1. Validaciones básicas
@@ -609,7 +621,7 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
         DefaultTableModel modelo = (DefaultTableModel) tblDetalleMovimiento.getModel();
 
         // Agregamos la fila (puedes añadir el ID del producto si lo tienes a la mano)
-        modelo.addRow(new Object[]{ "", nombreProd, cantidad, precio, subtotal });
+        modelo.addRow(new Object[]{ idProduto, nombreProd, cantidad, precio, subtotal });
 
         // 4. Actualizar el total general de la ventana
         calcularTotalGeneral();
@@ -619,6 +631,7 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
         txtStock.setText("0");
         txtPrecio.setText("0.00");
         spCantidad.setValue(0);
+        idProduto = 0;
     }
     
     

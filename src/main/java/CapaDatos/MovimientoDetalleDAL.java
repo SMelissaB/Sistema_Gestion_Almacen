@@ -81,7 +81,7 @@ public class MovimientoDetalleDAL {
                 Object[] fila = new Object[5];
                 fila[0] = rs.getString("Fecha");
                 fila[1] = rs.getString("Documento");
-                fila[2] = rs.getObject("Entrada"); // Usamos getObject por si es null
+                fila[2] = rs.getObject("Entrada");
                 fila[3] = rs.getObject("Salida");
                 fila[4] = rs.getInt("Saldo");
                 lista.add(fila);

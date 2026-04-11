@@ -95,7 +95,7 @@ INSERT INTO producto (codigo, nombre, id_unidad, precio_unitario, id_categoria, 
 -- 6. movimiento
 INSERT INTO movimiento (fecha, tipo_movimiento, numero_documento, id_usuario) VALUES 
 ('2026-04-01', 'ENTRADA', 'DOC-001', 1),
-('2026-04-02', 'SALIDA', 'DOC-002', 2),
+('2026-04-02', 'ENTRADA', 'DOC-002', 2),
 ('2026-04-03', 'ENTRADA', 'DOC-003', 1),
 ('2026-04-04', 'SALIDA', 'DOC-004', 3),
 ('2026-04-05', 'ENTRADA', 'DOC-005', 2),
@@ -111,6 +111,29 @@ INSERT INTO detalle_movimiento (id_movimiento, id_producto, cantidad, precio_his
 (6, 6, 5, 14.80, 20);
 
 -- Procedimientos Almacenados
+
+-- -----------------------------------------------------
+-- PROCEDIMIENTOS PARA PRODUCTO
+-- -----------------------------------------------------
+DELIMITER //
+CREATE PROCEDURE sp_listar_productos()
+BEGIN
+    SELECT id_producto, codigo, nombre, precio_unitario, stock FROM producto;
+END //
+
+CREATE PROCEDURE sp_buscar_producto_codigo(
+    IN p_codigo VARCHAR(10)
+)
+BEGIN
+    SELECT id_producto, codigo, nombre, precio_unitario, stock FROM producto WHERE codigo = p_codigo;
+END //
+
+CREATE PROCEDURE sp_buscar_producto_nombre(
+    IN p_nombre VARCHAR(50)
+)
+BEGIN
+    SELECT id_producto, codigo, nombre, precio_unitario, stock FROM producto WHERE nombre = p_nombre;
+END //
 
 -- -----------------------------------------------------
 -- PROCEDIMIENTOS PARA PROVEEDOR

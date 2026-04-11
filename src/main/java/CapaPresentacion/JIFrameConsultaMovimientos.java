@@ -6,6 +6,8 @@
 package CapaPresentacion;
 
 import CapaNegocio.MovimientoDetalleBL;
+import CapaNegocio.ProductoBL;
+import CapaRecursos.Producto;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class JIFrameConsultaMovimientos extends javax.swing.JInternalFrame {
 
-    private int idProductoSeleccionado = 1;
+    private int idProductoSeleccionado = 0;
     /**
      * Creates new form JIFrameConsultaMovimientos
      */
@@ -33,7 +35,7 @@ public class JIFrameConsultaMovimientos extends javax.swing.JInternalFrame {
         txtStockActual.setEditable(false);
         this.setClosable(true);
         this.setIconifiable(true);
-        listarMovimientos();
+        //listarMovimientos();
     }
 
     
@@ -267,7 +269,7 @@ public class JIFrameConsultaMovimientos extends javax.swing.JInternalFrame {
     private void btnBuscarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProductoActionPerformed
         String codigo = txtCodigoBusqueda.getText().trim();
         if (codigo.isEmpty()) return;
- /*
+ 
         ProductoBL oProductoBL = new ProductoBL();
         Producto p = oProductoBL.buscarPorCodigo(codigo);
 
@@ -275,11 +277,11 @@ public class JIFrameConsultaMovimientos extends javax.swing.JInternalFrame {
             txtNombreProducto.setText(p.getNombre());
             txtPrecioActual.setText(String.valueOf(p.getPrecio()));
             txtStockActual.setText(String.valueOf(p.getStock()));
-            // Guardamos el ID internamente para la siguiente búsqueda
-            this.idProductoSeleccionado = p.getId(); 
+            this.btnVerMovimientos.setEnabled(true);
+            this.idProductoSeleccionado = p.getIdProducto(); 
         } else {
             JOptionPane.showMessageDialog(this, "Producto no encontrado.");
-        }*/
+        }
     }//GEN-LAST:event_btnBuscarProductoActionPerformed
 
     private void btnVerMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerMovimientosActionPerformed
