@@ -22,12 +22,6 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
     
     Integer idProduto = 0;
     
-    // Datos para pruebas
-    /*String[] nombresProd = {"-- Seleccione un Producto --", "Leche 1L", "Arroz 5kg", "Detergente", "Shampoo", "Agua 600ml", "Pollo 1kg"};
-    int[] stocksProd = {0,100, 50, 30, 45, 200, 25}; 
-    double[] preciosProd = { 0.0, 3.50, 18.20, 12.00, 15.50, 2.00, 14.80};
-    int[] idsProd = { 0, 1, 2, 3, 4, 5, 6};
-    */
     public JIFrameMovimiento() {
         initComponents();
         configurarCabecera();
@@ -39,8 +33,6 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
         java.time.LocalDate hoy = java.time.LocalDate.now();
         lblFecha.setText(hoy.toString());
 
-        // 2. Usuario: Corregimos el "Usuario: Usuario: null"
-        // Validamos si la sesión tiene datos; si no, ponemos un genérico
         String nombreUsuario = CapaRecursos.Sesion.getUsername();
         if (nombreUsuario == null || nombreUsuario.isEmpty()) {
             lblUsuario.setText("Usuario: Invitado");
@@ -48,19 +40,16 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
             lblUsuario.setText("Usuario: " + nombreUsuario);
         }
 
-        // 3. Combo Tipo de Movimiento: Limpiar y cargar
         cboTipoMovimiento.removeAllItems();
         cboTipoMovimiento.addItem("ENTRADA");
         cboTipoMovimiento.addItem("SALIDA");
 
-        // 4. Configuración de campos de texto
         txtStock.setEditable(false);
         txtStock.setText("0");
         txtPrecio.setText("0.00");
         lblTotal.setText("0.00");
         txtNroDocumento.setText(""); 
 
-        // Le damos valores a las columnas de las tablas
         configurarTabla();
         
         cargarProductosCombo();
@@ -70,7 +59,7 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
         DefaultTableModel modelo = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Evitamos que editen directamente en la celda por ahora
+                return false;
             }
         };
 
@@ -82,28 +71,19 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
 
         tblDetalleMovimiento.setModel(modelo);
 
-        // Ajustar anchos de columnas (opcional)
         tblDetalleMovimiento.getColumnModel().getColumn(0).setPreferredWidth(50);
         tblDetalleMovimiento.getColumnModel().getColumn(1).setPreferredWidth(250);
     }
     
     private void cargarProductosCombo() {
-        //cargarProductosMock();
         cargarProductosBD();
     }
-    /*private void cargarProductosMock(){
-        cboProducto.removeAllItems();
-        for (String nombre : nombresProd) {
-            cboProducto.addItem(nombre);
-        }
-    }*/
     
     private void cargarProductosBD(){
         
         cboProducto.removeAllItems();
         cboProducto.addItem("-- Seleccione un Producto --");
 
-        // Asumimos que tienes un ProductoBL y un objeto de modelo Producto
         CapaNegocio.ProductoBL oProductoBL = new CapaNegocio.ProductoBL();
         java.util.List<CapaRecursos.Producto> lista = oProductoBL.listarProductos();
 
@@ -405,59 +385,34 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cboTipoMovimientoActionPerformed
 
     private void cboProductoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboProductoItemStateChanged
-        //cboProductoStateChangedMock(evt);
         cboProductoStateChangedBD(evt);
     }//GEN-LAST:event_cboProductoItemStateChanged
 
     private void cboProductoStateChangedBD(java.awt.event.ItemEvent evt){
-        // Solo actuamos cuando se SELECCIONA un elemento (evita que se ejecute dos veces)
         if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
 
             String nombreProd = cboProducto.getSelectedItem().toString();
 
             if (!nombreProd.equals("-- Seleccione un Producto --")) {
-                // 1. Llamamos a la lógica de negocio para buscar el producto por nombre
                 CapaNegocio.ProductoBL oProductoBL = new CapaNegocio.ProductoBL();
                 CapaRecursos.Producto p = oProductoBL.buscarPorNombre(nombreProd);
 
                 if (p != null) {
-                    // 2. Llenamos los campos automáticamente
                     System.out.println(p.getIdProducto());
                     this.idProduto = p.getIdProducto();
                     txtStock.setText(String.valueOf(p.getStock()));
                     txtPrecio.setText(String.valueOf(p.getPrecio()));
-                    spCantidad.setValue(1); // Ponemos 1 por defecto
-                    spCantidad.requestFocus(); // Saltamos el cursor a cantidad para ahorrar tiempo
-                    
-                    
-                    
+                    spCantidad.setValue(1);
+                    spCantidad.requestFocus();
                 }
             } else {
-                // Si selecciona el mensaje de ayuda, limpiamos los campos
                 txtStock.setText("0");
                 txtPrecio.setText("0.00");
             }
         }
     }
-    
-    /*private void cboProductoStateChangedMock(java.awt.event.ItemEvent evt){
-        if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
-            int index = cboProducto.getSelectedIndex();
-
-            if (index > 0) { // Si no es el mensaje de "Seleccione..."
-                txtStock.setText(String.valueOf(stocksProd[index]));
-                txtPrecio.setText(String.valueOf(preciosProd[index]));
-                spCantidad.setValue(1);
-                spCantidad.requestFocus();
-            } else {
-                txtStock.setText("0");
-                txtPrecio.setText("0.00");
-            }
-        }
-    }*/
-    
+        
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        //agregarProdcutoMock();
         agregarProdcutoBD();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -466,14 +421,12 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
         int filaSeleccionada = tblDetalleMovimiento.getSelectedRow();
 
         if (filaSeleccionada != -1) {
-            // Opcional: Pedir confirmación
             int resp = JOptionPane.showConfirmDialog(this, 
                     "¿Está seguro de quitar este producto del detalle?", 
                     "Quitar Item", JOptionPane.YES_NO_OPTION);
 
             if (resp == JOptionPane.YES_OPTION) {
                 modelo.removeRow(filaSeleccionada);
-                // ¡Importante! Recalcular el total después de quitar
                 calcularTotalGeneral();
             }
         } else {
@@ -487,21 +440,17 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
                 "Limpiar Todo", JOptionPane.YES_NO_OPTION);
 
         if (resp == JOptionPane.YES_OPTION) {
-            // 1. Limpiar la tabla (Detalle)
             DefaultTableModel modelo = (DefaultTableModel) tblDetalleMovimiento.getModel();
             modelo.setRowCount(0); 
 
-            // 2. Limpiar campos de la sección Producto
             cboProducto.setSelectedIndex(0);
             txtStock.setText("0");
             txtPrecio.setText("0.00");
             spCantidad.setValue(0);
 
-            // 3. Limpiar campos de la Cabecera (excepto fecha y usuario)
             txtNroDocumento.setText("");
             cboTipoMovimiento.setSelectedIndex(0);
 
-            // 4. Resetear el total
             lblTotal.setText("TOTAL : S/ 0.00");
 
             txtNroDocumento.requestFocus();
@@ -509,7 +458,6 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnLimpiarTodoActionPerformed
 
     private void btnGuardarMovimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarMovimientoActionPerformed
-        // 1. Validaciones previas
         if (txtNroDocumento.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Debe ingresar el número de documento.");
             return;
@@ -519,34 +467,28 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
             return;
         }
 
-        // 2. Proceso de Guardado
         int respuesta = JOptionPane.showConfirmDialog(this, "¿Desea registrar este movimiento?", "Confirmar", JOptionPane.YES_NO_OPTION);
         if (respuesta == JOptionPane.YES_OPTION) {
             try {
-                // Instanciamos la Lógica de Negocio
                 CapaNegocio.MovimientoBL oMovimientoBL = new CapaNegocio.MovimientoBL();
 
-                // A. Capturamos los datos de la cabecera
                 String fecha = lblFecha.getText();
                 String tipo = cboTipoMovimiento.getSelectedItem().toString();
                 String documento = txtNroDocumento.getText();
-                int idUsuario = 1; // Aquí pondrás el id real cuando tengas el login
+                int idUsuario = 1;
 
-                // B. Preparamos la lista del Detalle recorriendo la JTable
-                // Usamos List<Object[]> porque es lo que definimos en el nuevo BL
                 java.util.List<Object[]> detalle = new java.util.ArrayList<>();
 
                 for (int i = 0; i < tblDetalleMovimiento.getRowCount(); i++) {
                     Object[] fila = new Object[4];
-                    fila[0] = Integer.parseInt(tblDetalleMovimiento.getValueAt(i, 0).toString()); // ID Producto
-                    fila[1] = tblDetalleMovimiento.getValueAt(i, 1).toString(); // Nombre (opcional)
-                    fila[2] = Integer.parseInt(tblDetalleMovimiento.getValueAt(i, 2).toString()); // Cantidad
-                    fila[3] = Double.parseDouble(tblDetalleMovimiento.getValueAt(i, 3).toString()); // Precio
+                    fila[0] = Integer.parseInt(tblDetalleMovimiento.getValueAt(i, 0).toString());
+                    fila[1] = tblDetalleMovimiento.getValueAt(i, 1).toString();
+                    fila[2] = Integer.parseInt(tblDetalleMovimiento.getValueAt(i, 2).toString());
+                    fila[3] = Double.parseDouble(tblDetalleMovimiento.getValueAt(i, 3).toString());
 
                     detalle.add(fila);
                 }
 
-                // C. Enviamos todo al método transaccional del BL
                 boolean exito = oMovimientoBL.registrarMovimientoCompleto(fecha, tipo, documento, idUsuario, detalle);
 
                 if (exito) {
@@ -563,35 +505,7 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnGuardarMovimientoActionPerformed
 
-     /*private void agregarProdcutoMock(){
-         int index = cboProducto.getSelectedIndex();
-        if (index == 0) {
-            JOptionPane.showMessageDialog(this, "Seleccione un producto.");
-            return;
-        }
-
-        int id = idsProd[index]; // Obtenemos el ID del arreglo
-        String nombre = nombresProd[index];
-        int cant = (int) spCantidad.getValue();
-        double precio = Double.parseDouble(txtPrecio.getText());
-        double subtotal = cant * precio;
-
-        // Validación de stock (Solo si es SALIDA)
-        if (cboTipoMovimiento.getSelectedItem().toString().equals("SALIDA")) {
-            if (cant > stocksProd[index]) {
-                JOptionPane.showMessageDialog(this, "Stock insuficiente.");
-                return;
-            }
-        }
-
-        DefaultTableModel modelo = (DefaultTableModel) tblDetalleMovimiento.getModel();
-        modelo.addRow(new Object[]{id, nombre, cant, precio, subtotal});
-
-        calcularTotalGeneral();
-     }*/
-
     private void agregarProdcutoBD(){
-        // 1. Validaciones básicas
         if (cboProducto.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(this, "Seleccione un producto.");
             return;
@@ -603,7 +517,6 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
             return;
         }
 
-        // 2. Validación de Stock si es una SALIDA
         if (cboTipoMovimiento.getSelectedItem().toString().equals("SALIDA")) {
             int stockActual = Integer.parseInt(txtStock.getText());
             if (cantidad > stockActual) {
@@ -612,21 +525,16 @@ public class JIFrameMovimiento extends javax.swing.JInternalFrame {
             }
         }
 
-        // 3. Calcular subtotal y agregar a la tabla
         double precio = Double.parseDouble(txtPrecio.getText());
         double subtotal = precio * cantidad;
         String nombreProd = cboProducto.getSelectedItem().toString();
 
-        // Obtenemos el modelo de la tabla
         DefaultTableModel modelo = (DefaultTableModel) tblDetalleMovimiento.getModel();
 
-        // Agregamos la fila (puedes añadir el ID del producto si lo tienes a la mano)
         modelo.addRow(new Object[]{ idProduto, nombreProd, cantidad, precio, subtotal });
 
-        // 4. Actualizar el total general de la ventana
         calcularTotalGeneral();
 
-        // 5. Limpiar para el siguiente producto
         cboProducto.setSelectedIndex(0);
         txtStock.setText("0");
         txtPrecio.setText("0.00");

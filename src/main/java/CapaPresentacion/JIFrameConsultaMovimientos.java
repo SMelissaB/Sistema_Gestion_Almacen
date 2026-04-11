@@ -25,35 +25,28 @@ public class JIFrameConsultaMovimientos extends javax.swing.JInternalFrame {
     public JIFrameConsultaMovimientos() {
         initComponents();
         configurarTabla();
-        // También puedes aprovechar para deshabilitar el botón de Kardex 
-        // hasta que se encuentre un producto válido
         btnVerMovimientos.setEnabled(false);
 
-        // Y poner los campos de texto como solo lectura
         txtNombreProducto.setEditable(false);
         txtPrecioActual.setEditable(false);
         txtStockActual.setEditable(false);
         this.setClosable(true);
         this.setIconifiable(true);
-        //listarMovimientos();
     }
 
     
     private void configurarTabla() {
-        // 1. Definimos los nombres de las columnas según tu requerimiento
         String[] columnas = {"Fecha", "Documento", "Entrada", "Salida", "Saldo"};
 
-        // 2. Creamos un modelo que NO permita editar las celdas directamente
         DefaultTableModel modelo = new DefaultTableModel(null, columnas) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Todas las celdas son de solo lectura
+                return false;
             }
         };
 
         tblMovimientos.setModel(modelo);
 
-        // 3. Ajustamos los anchos para que se vea profesional
         tblMovimientos.getColumnModel().getColumn(0).setPreferredWidth(100); // Fecha
         tblMovimientos.getColumnModel().getColumn(1).setPreferredWidth(150); // Documento
         tblMovimientos.getColumnModel().getColumn(2).setPreferredWidth(80);  // Entrada
@@ -68,7 +61,6 @@ public class JIFrameConsultaMovimientos extends javax.swing.JInternalFrame {
         txtPrecioActual.setText("");
         txtStockActual.setText("");
 
-        // Limpiamos las filas de la tabla
         DefaultTableModel modelo = (DefaultTableModel) tblMovimientos.getModel();
         modelo.setRowCount(0);
 
@@ -294,12 +286,11 @@ public class JIFrameConsultaMovimientos extends javax.swing.JInternalFrame {
             return;
         }
 
-        // Llamamos al método que definimos en el paso anterior
         MovimientoDetalleBL oDetalleBL = new MovimientoDetalleBL();
         List<Object[]> historial = oDetalleBL.consultarMovimientos(this.idProductoSeleccionado);
 
         DefaultTableModel modelo = (DefaultTableModel) tblMovimientos.getModel();
-        modelo.setRowCount(0); // Limpiar tabla
+        modelo.setRowCount(0);
 
         for (Object[] fila : historial) {
             modelo.addRow(fila);
